@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wl.dao.SuccessKilledDao">
+    <insert id="insertSuccessKilled">
+        insert into success_killed(seckill_id, user_phone,create_time)
+         values (#{seckillId},#{userPhone},#{successTime})
+    </insert>
+    
+    <select id="queryByIdWithSeckill" resultType="com.wl.entity.SuccessKilled">
+        <!-- 根据id查询SuccessKilled并携带Seckill实体-->
+        select
+        success_killed.seckill_id,
+        success_killed.user_phone,
+        success_killed.create_time,
+        success_killed.state,
+        seckill.name,
+        seckill.number,
+        seckill.start_time,
+        seckill.end_time,
+        seckill.create_time
+        from success_killed inner join seckill on success_killed.seckill_id = seckill.seckill_id
+        where success_killed.seckill_id = #{seckillId} and success_killed.user_phone = #{userphone}
+    </select>
+</mapper>
